@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_ui_kit/screens/dishes.dart';
+import 'package:restaurant_ui_kit/application_layer/use_case/product_use_case.dart';
+//import 'package:restaurant_ui_kit/screens/dishes.dart';
 import 'package:restaurant_ui_kit/widgets/grid_product.dart';
-import 'package:restaurant_ui_kit/widgets/home_category.dart';
-import 'package:restaurant_ui_kit/widgets/slider_item.dart';
-import 'package:restaurant_ui_kit/util/foods.dart';
-import 'package:restaurant_ui_kit/util/categories.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-
+//import 'package:restaurant_ui_kit/widgets/home_category.dart';
+//import 'package:restaurant_ui_kit/widgets/slider_item.dart';
+//import 'package:restaurant_ui_kit/util/foods.dart';
+//import 'package:restaurant_ui_kit/util/categories.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
-
+class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -25,15 +25,28 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
   }
 
   int _current = 0;
+  List<ProductModel> foods;
 
+  Future<void> update() async {
+    Iterable<List<ProductModel>> products =
+        await Future.wait([ProductUserCase().getAllProducts()]);
+    setState(() {
+      foods = products.first;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    update();
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-
       body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0,0,10.0,0),
+        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
           children: <Widget>[
             /*
@@ -132,7 +145,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
 
             SizedBox(height: 20.0),
             */
-            
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -159,7 +172,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
               ],
             ),
             SizedBox(height: 10.0),
-
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -169,19 +181,20 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
                 childAspectRatio: MediaQuery.of(context).size.width /
                     (MediaQuery.of(context).size.height / 1.25),
               ),
-              itemCount: foods == null ? 0 :foods.length,
+              itemCount: foods == null ? 0 : foods.length,
               itemBuilder: (BuildContext context, int index) {
-                Map food = foods[index];
+                ProductModel food = foods[index];
                 return GridProduct(
-                  img: food['img'],
+                  img: "assets/food1.jpeg",
                   isFav: false,
-                  name: food['name'],
-                  price: 2.99,
+                  name: food.name,
+                  price: food.priceObjectValue.price,
                   currency: 'BRL',
+                  description: food.description,
+                  unit: food.unit
                 );
               },
             ),
-
             SizedBox(height: 30),
           ],
         ),

@@ -7,12 +7,28 @@ import 'package:restaurant_ui_kit/widgets/badge.dart';
 import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
 
 class ProductDetails extends StatefulWidget {
+  final double price;
+  final String currency;
+  final String name;
+  final String description;
+  final String unit;
+
+  ProductDetails(
+      {Key key,
+      @required this.price,
+      @required this.currency,
+      @required this.name,
+      @required this.description,
+      @required this.unit})
+      : super(key: key);
+
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
   bool isFav = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +38,15 @@ class _ProductDetailsState extends State<ProductDetails> {
           icon: Icon(
             Icons.keyboard_backspace,
           ),
-          onPressed: ()=>Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         title: Text(
-          "Item Details",
+          "Detalhes do Produto",
         ),
         elevation: 0.0,
         actions: <Widget>[
+          /*
           IconButton(
             icon: IconBadge(
               icon: Icons.notifications,
@@ -45,11 +62,11 @@ class _ProductDetailsState extends State<ProductDetails> {
               );
             },
           ),
+          */
         ],
       ),
-
       body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0,0,10.0,0),
+        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
           children: <Widget>[
             SizedBox(height: 10.0),
@@ -66,21 +83,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                 ),
-
                 Positioned(
                   right: -10.0,
                   bottom: 3.0,
                   child: RawMaterialButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     fillColor: Colors.white,
                     shape: CircleBorder(),
                     elevation: 4.0,
                     child: Padding(
                       padding: EdgeInsets.all(5),
                       child: Icon(
-                        isFav
-                            ?Icons.favorite
-                            :Icons.favorite_border,
+                        isFav ? Icons.favorite : Icons.favorite_border,
                         color: Colors.red,
                         size: 17,
                       ),
@@ -89,22 +103,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ],
             ),
-
             SizedBox(height: 10.0),
-
             Text(
-              "${foods[1]['name']}",
+              "${widget.name}",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
               ),
               maxLines: 2,
             ),
-
             Padding(
               padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
               child: Row(
                 children: <Widget>[
+                  /*
                   SmoothStarRating(
                     starCount: 5,
                     color: Constants.ratingBG,
@@ -120,72 +132,52 @@ class _ProductDetailsState extends State<ProductDetails> {
                       fontSize: 11.0,
                     ),
                   ),
-
+                  */
                 ],
               ),
             ),
-
-
             Padding(
               padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
               child: Row(
                 children: <Widget>[
                   Text(
-                    "20 Pieces",
+                    "${widget.unit}",
                     style: TextStyle(
                       fontSize: 11.0,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
                   SizedBox(width: 10.0),
-
                   Text(
-                    r"$90",
+                    "${widget.currency} ${widget.price}",
                     style: TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor,
                     ),
                   ),
-
                 ],
               ),
             ),
-
-
             SizedBox(height: 20.0),
-
             Text(
-              "Product Description",
+              "Descrição do Produto",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
               ),
               maxLines: 2,
             ),
-
             SizedBox(height: 10.0),
-
             Text(
-              "Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor "
-                  "sit amet, consectetur adipiscing elit. Curabitur aliquet quam "
-                  "id dui posuere blandit. Pellentesque in ipsum id orci porta "
-                  "dapibus. Vestibulum ante ipsum primis in faucibus orci luctus "
-                  "et ultrices posuere cubilia Curae; Donec velit neque, auctor "
-                  "sit amet aliquam vel, ullamcorper sit amet ligula. Donec"
-                  " rutrum congue leo eget malesuada. Vivamus magna justo,"
-                  " lacinia eget consectetur sed, convallis at tellus."
-                  " Vivamus suscipit tortor eget felis porttitor volutpat."
-                  " Donec rutrum congue leo eget malesuada."
-                  " Pellentesque in ipsum id orci porta dapibus.",
+              "${widget.description}",
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w300,
               ),
             ),
-
             SizedBox(height: 20.0),
-
+            /*
             Text(
               "Reviews",
               style: TextStyle(
@@ -194,6 +186,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               maxLines: 2,
             ),
+            
             SizedBox(height: 20.0),
 
             ListView.builder(
@@ -243,25 +236,29 @@ class _ProductDetailsState extends State<ProductDetails> {
                 );
               },
             ),
-
+            */
             SizedBox(height: 10.0),
           ],
         ),
       ),
-
-
-
       bottomNavigationBar: Container(
         height: 50.0,
         child: RaisedButton(
-          child: Text(
-            "ADD TO CART",
-            style: TextStyle(
-              color: Colors.white,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(Icons.add_shopping_cart),
+              Text(
+                "ADICIONAR CARRINHO",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
           color: Theme.of(context).accentColor,
-          onPressed: (){},
+          onPressed: () {},
         ),
       ),
     );

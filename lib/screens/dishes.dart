@@ -77,8 +77,8 @@ class _DishesScreenState extends State<DishesScreen> {
                   img: food['img'],
                   isFav: false,
                   name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  price: 5.0,
+                  currency: 'BRL',
                 );
               },
             ),
@@ -110,8 +110,8 @@ class _DishesScreenState extends State<DishesScreen> {
                   img: food['img'],
                   isFav: false,
                   name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  price: 5.0,
+                  currency: 'BRL',
                 );
               },
             ),
@@ -143,8 +143,8 @@ class _DishesScreenState extends State<DishesScreen> {
                   img: food['img'],
                   isFav: false,
                   name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  price: 5.0,
+                  currency: 'BRL',
                 );
               },
             ),

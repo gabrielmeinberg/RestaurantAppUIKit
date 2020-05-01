@@ -103,8 +103,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   img: food['img'],
                   isFav: false,
                   name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  price: 5.0,
+                  currency: 'BRL',
                 );
               },
             ),

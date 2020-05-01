@@ -45,8 +45,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> with AutomaticKeepAlive
                   img: food['img'],
                   isFav: true,
                   name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  price: 5.0,
+                  currency: 'BRL',
                 );
               },
             ),

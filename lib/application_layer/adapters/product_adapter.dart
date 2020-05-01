@@ -16,7 +16,7 @@ class ProductAdapterAPi extends ProductPort {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      List responseJson =  json.decode(response.body) as List;
+      List responseJson =  json.decode(utf8.decode(response.bodyBytes)) as List;
       return responseJson.map((product) {
        PriceObjectValue price = PriceObjectValue.fromMap(product);
        return ProductModel.fromMap(product, product['id'], price);

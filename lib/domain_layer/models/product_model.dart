@@ -6,6 +6,7 @@ class ProductModel {
   String description;
   bool highlighted;
   PriceObjectValue priceObjectValue;
+  String unit;
 
   ProductModel(
       this.name, this.description, this.highlighted, this.priceObjectValue);
@@ -15,7 +16,8 @@ class ProductModel {
         name = snapshot['name'] ?? '',
         description = snapshot['description'] ?? '',
         highlighted = snapshot['highlighted'] ?? '',
-        priceObjectValue = price ?? PriceObjectValue(null, null);
+        priceObjectValue = price ?? PriceObjectValue(null, null),
+        unit = snapshot['unit'] ?? '';
 
   toJson(){
     return {
@@ -23,7 +25,8 @@ class ProductModel {
       "description": description,
       "highlighted": highlighted,
       "price": priceObjectValue.price,
-      "currency": priceObjectValue.currency
+      "currency": priceObjectValue.currency,
+      "unit": unit
     };
   }
 }
@@ -43,6 +46,7 @@ class PriceObjectValue {
 class ProductService {
 
   Future<List<ProductModel>> getAll(ProductPort adapter) async {
-    return adapter.getProducts(null);
+    return await adapter.getProducts(null);
   }
+ 
 }
