@@ -36,17 +36,18 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
         padding: EdgeInsets.fromLTRB(10.0,0,10.0,0),
         child: ListView(
           children: <Widget>[
+            /*
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Dishes",
+                  "Destaques",
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-
+                
                 FlatButton(
                   child: Text(
                     "View More",
@@ -66,6 +67,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
                     );
                   },
                 ),
+                
               ],
             ),
 
@@ -98,6 +100,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
                 });
               },
             ),
+            
             SizedBox(height: 20.0),
 
             Text(
@@ -128,18 +131,19 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
             ),
 
             SizedBox(height: 20.0),
-
+            */
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Popular Items",
+                  "Pratos",
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-
+                /*
                 FlatButton(
                   child: Text(
                     "View More",
@@ -151,6 +155,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
                   ),
                   onPressed: (){},
                 ),
+                */
               ],
             ),
             SizedBox(height: 10.0),
@@ -166,16 +171,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home>{
               ),
               itemCount: foods == null ? 0 :foods.length,
               itemBuilder: (BuildContext context, int index) {
-//                Food food = Food.fromJson(foods[index]);
                 Map food = foods[index];
-//                print(foods);
-//                print(foods.length);
                 return GridProduct(
                   img: food['img'],
                   isFav: false,
                   name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  price: 2.99,
+                  currency: 'BRL',
                 );
               },
             ),

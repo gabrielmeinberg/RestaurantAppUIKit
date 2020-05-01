@@ -10,15 +10,20 @@ class GridProduct extends StatelessWidget {
   final bool isFav;
   final double rating;
   final int raters;
+  final double price;
+  final String currency; 
+
 
 
   GridProduct({
     Key key,
     @required this.name,
     @required this.img,
-    @required this.isFav,
-    @required this.rating,
-    @required this.raters})
+    @required this.price,
+    @required this.currency,
+    this.isFav,
+    this.rating,
+    this.raters})
       :super(key: key);
 
   @override
@@ -41,7 +46,7 @@ class GridProduct extends StatelessWidget {
                   ),
                 ),
               ),
-
+              /*
               Positioned(
                 right: -10.0,
                 bottom: 3.0,
@@ -62,6 +67,7 @@ class GridProduct extends StatelessWidget {
                   ),
                 ),
               ),
+              */
             ],
 
 
@@ -83,6 +89,7 @@ class GridProduct extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
             child: Row(
               children: <Widget>[
+                /*
                 SmoothStarRating(
                   starCount: 5,
                   color: Constants.ratingBG,
@@ -90,14 +97,20 @@ class GridProduct extends StatelessWidget {
                   rating: rating,
                   size: 10.0,
                 ),
-
+                
                 Text(
                   " $rating ($raters Reviews)",
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
                 ),
-
+                */
+                Text(
+                  " $currency $price",
+                  style: TextStyle(
+                    fontSize: 11.0,
+                  ),
+                ),
               ],
             ),
           ),

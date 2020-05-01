@@ -32,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           elevation: 0.0,
           actions: <Widget>[
+            /*
             IconButton(
               icon: IconBadge(
                 icon: Icons.notifications,
@@ -48,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
               },
               tooltip: "Notifications",
             ),
+            */
           ],
         ),
 
@@ -84,18 +86,18 @@ class _MainScreenState extends State<MainScreen> {
               ),
 
               IconButton(
-                icon:Icon(
-                  Icons.favorite,
+                icon: IconBadge(
+                  icon: Icons.shopping_cart,
                   size: 24.0,
                 ),
-                color: _page == 1
+                color: _page == 3
                     ? Theme.of(context).accentColor
                     : Theme
                     .of(context)
                     .textTheme.caption.color,
-                onPressed: ()=>_pageController.jumpToPage(1),
+                onPressed: ()=>_pageController.jumpToPage(3),
               ),
-
+              /*
               IconButton(
                 icon: Icon(
                   Icons.search,
@@ -109,18 +111,18 @@ class _MainScreenState extends State<MainScreen> {
                     .textTheme.caption.color,
                 onPressed: ()=>_pageController.jumpToPage(2),
               ),
-
+              */
               IconButton(
-                icon: IconBadge(
-                  icon: Icons.shopping_cart,
+                icon:Icon(
+                  Icons.list,
                   size: 24.0,
                 ),
-                color: _page == 3
+                color: _page == 1
                     ? Theme.of(context).accentColor
                     : Theme
                     .of(context)
                     .textTheme.caption.color,
-                onPressed: ()=>_pageController.jumpToPage(3),
+                onPressed: ()=>_pageController.jumpToPage(1),
               ),
 
               IconButton(
@@ -142,6 +144,7 @@ class _MainScreenState extends State<MainScreen> {
           color: Theme.of(context).primaryColor,
           shape: CircularNotchedRectangle(),
         ),
+        /*
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
@@ -151,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           onPressed: ()=>_pageController.jumpToPage(2),
         ),
-
+        */
       ),
     );
   }
