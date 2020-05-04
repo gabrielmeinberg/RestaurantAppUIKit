@@ -8,8 +8,8 @@ class ProductModel {
   PriceObjectValue priceObjectValue;
   String unit;
 
-  ProductModel(
-      this.name, this.description, this.highlighted, this.priceObjectValue);
+  ProductModel({
+      this.name, this.description, this.highlighted, this.priceObjectValue});
 
   ProductModel.fromMap(Map snapshot, int id, PriceObjectValue price)
       : id = id ?? '',

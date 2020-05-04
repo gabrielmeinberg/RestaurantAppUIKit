@@ -1,18 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restaurant_ui_kit/application_layer/use_case/cart_use_case.dart';
+import 'package:restaurant_ui_kit/application_layer/use_case/product_use_case.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/cart_model.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
 import 'package:restaurant_ui_kit/util/const.dart';
+import 'package:restaurant_ui_kit/widgets/cart_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppProvider extends ChangeNotifier{
   AppProvider(){
     checkTheme();
+    getFoods();
+    getCart();
   }
 
 
   ThemeData theme = Constants.lightTheme;
   Key key = UniqueKey();
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  List<ProductModel> foods;
+  CartModel cart;
 
   void setKey(value) {
     key = value;
@@ -58,4 +67,42 @@ class AppProvider extends ChangeNotifier{
 
     return t;
   }
+
+  void getFoods() async {
+    Iterable<List<ProductModel>> products =
+        await Future.wait([ProductUserCase().getAllProducts()]);
+
+    foods = products.first;
+
+    notifyListeners();
+  }
+
+  void getCart() async {
+    Iterable<CartModel> cartReturn =
+        await Future.wait([CartUserCase().getCart()]);
+    cart = cartReturn.first;
+
+    notifyListeners();
+  }
+
+  Future<void> addItemCart(ProductModel product, int quantity) async {
+    await Future.wait([CartUserCase().addItemCart(product, quantity)]);
+    getCart();
+
+    notifyListeners();
+  }
+
+  Future<void> deleteItemCart(CartItemModel item) async {
+    await Future.wait([CartUserCase().deleteItem(item)]);
+    getCart();
+
+    notifyListeners();
+  }
+
+  Future<void> makeOrder(CartModel cart) async {
+    await Future.wait([CartUserCase().makeOrder(cart)]);
+    getCart();
+    notifyListeners();
+  }
+  
 }

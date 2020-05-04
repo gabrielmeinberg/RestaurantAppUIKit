@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/cart_model.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
+import 'package:restaurant_ui_kit/providers/app_provider.dart';
 import 'package:restaurant_ui_kit/util/foods.dart';
 import 'package:restaurant_ui_kit/widgets/cart_item.dart';
 
@@ -9,18 +13,28 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-
   final TextEditingController _couponlControl = new TextEditingController();
-
-
+  String dropdownValue;
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
+    CartModel cart = Provider.of<AppProvider>(context).cart;
+    double getTotal() {
+      double total = 0;
+
+      for (CartItemModel i in cart.cart) {
+        ProductModel product = Provider.of<AppProvider>(context)
+            .foods
+            .firstWhere((food) => food.id == i.productId);
+        total = total + i.quantity * product.priceObjectValue.price;
+      }
+
+      return total;
+    }
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -39,13 +53,12 @@ class _CheckoutState extends State<Checkout> {
               Icons.clear,
               color: Theme.of(context).accentColor,
             ),
-            onPressed: ()=>Navigator.pop(context),
+            onPressed: () => Navigator.pop(context),
           ),
         ],
       ),
-
       body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0,0,10.0,130),
+        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 130),
         child: ListView(
           children: <Widget>[
             SizedBox(height: 10.0),
@@ -53,15 +66,14 @@ class _CheckoutState extends State<Checkout> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Shipping Address",
+                  "Endereço de Entrega",
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-
                 IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   icon: Icon(
                     Icons.edit,
                   ),
@@ -79,17 +91,33 @@ class _CheckoutState extends State<Checkout> {
               ),
               subtitle: Text("1278 Loving Acres Road Kansas City, MO 64110"),
             ),
-
             SizedBox(height: 10.0),
-
             Text(
-              "Payment Method",
+              "Método de Pagamento",
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
               ),
             ),
-
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue = newValue;
+                });
+              },
+              items: <String>['Cartão', 'Dinheiro']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            /*
             Card(
               elevation: 4.0,
               child: ListTile(
@@ -107,16 +135,15 @@ class _CheckoutState extends State<Checkout> {
                   color: Theme.of(context).accentColor,
                 ),
                 trailing: IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   icon: Icon(
                     Icons.keyboard_arrow_down,
                   ),
                 ),
               ),
             ),
-
             SizedBox(height: 20.0),
-
+            */
             Text(
               "Items",
               style: TextStyle(
@@ -124,40 +151,34 @@ class _CheckoutState extends State<Checkout> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-
             ListView.builder(
               primary: false,
               shrinkWrap: true,
-              itemCount: foods == null ? 0 :foods.length,
+              itemCount: cart == null ? 0 : cart.cart.length,
               itemBuilder: (BuildContext context, int index) {
 //                Food food = Food.fromJson(foods[index]);
-                Map food = foods[index];
+                CartItemModel item = cart.cart[index];
 //                print(foods);
 //                print(foods.length);
                 return CartItem(
-                  img: food['img'],
-                  isFav: false,
-                  name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  img: "assets/food1.jpeg",
+                  item: item,
                 );
               },
             ),
           ],
         ),
       ),
-
       bottomSheet: Card(
         elevation: 4.0,
         child: Container(
-
           child: ListView(
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
+              /*
               Padding(
                 padding: EdgeInsets.all(10),
                 child: Container(
-
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.all(
@@ -173,10 +194,14 @@ class _CheckoutState extends State<Checkout> {
                       contentPadding: EdgeInsets.all(10.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(color: Colors.grey[200],),
+                        borderSide: BorderSide(
+                          color: Colors.grey[200],
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey[200],),
+                        borderSide: BorderSide(
+                          color: Colors.grey[200],
+                        ),
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       hintText: "Coupon Code",
@@ -194,13 +219,12 @@ class _CheckoutState extends State<Checkout> {
                   ),
                 ),
               ),
-
+              */
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10,5,5,5),
+                    padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -211,18 +235,16 @@ class _CheckoutState extends State<Checkout> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-
                         Text(
-                          r"$ 212",
+                          "${getTotal()}",
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Theme.of(context).accentColor,
                           ),
                         ),
-
                         Text(
-                          "Delivery charges included",
+                          "Custo de Entrega Incluido",
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w400,
@@ -231,31 +253,27 @@ class _CheckoutState extends State<Checkout> {
                       ],
                     ),
                   ),
-
                   Container(
-                    padding: EdgeInsets.fromLTRB(5,5,10,5),
+                    padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
                     width: 150.0,
                     height: 50.0,
                     child: FlatButton(
                       color: Theme.of(context).accentColor,
                       child: Text(
-                        "Place Order".toUpperCase(),
+                        "Confirmar Pedido".toUpperCase(),
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                      onPressed: (){},
+                      onPressed: () {
+                        Provider.of<AppProvider>(context, listen: false).makeOrder(cart);
+                      },
                     ),
                   ),
-
                 ],
               ),
-
-
-
             ],
           ),
-
           height: 130,
         ),
       ),

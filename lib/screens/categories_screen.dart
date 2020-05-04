@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
 import 'package:restaurant_ui_kit/screens/notifications.dart';
 import 'package:restaurant_ui_kit/util/categories.dart';
 import 'package:restaurant_ui_kit/util/foods.dart';
@@ -102,9 +103,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 return GridProduct(
                   img: food['img'],
                   isFav: false,
-                  name: food['name'],
-                  price: 5.0,
-                  currency: 'BRL',
+                  product: ProductModel(name:'teste', description:'teste'),
                 );
               },
             ),

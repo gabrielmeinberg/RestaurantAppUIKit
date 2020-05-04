@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -12,7 +11,7 @@ class ProductAdapterAPi extends ProductPort {
   @override
   Future<List<ProductModel>> getProducts(int id) async{
 
-    final response = await http.get('http://192.168.1.64:8000/store/product/');
+    final response = await http.get('http://ec2-35-175-235-153.compute-1.amazonaws.com/store/product/');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -24,7 +23,7 @@ class ProductAdapterAPi extends ProductPort {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load Products');
     }
   }
 }

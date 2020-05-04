@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_ui_kit/util/foods.dart';
 import 'package:restaurant_ui_kit/widgets/grid_product.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
+import 'package:restaurant_ui_kit/application_layer/use_case/product_use_case.dart';
 
 class FavoriteScreen extends StatefulWidget {
   @override
@@ -8,6 +9,23 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> with AutomaticKeepAliveClientMixin<FavoriteScreen>{
+
+   List<ProductModel> foods;
+
+  Future<void> update() async {
+    Iterable<List<ProductModel>> products =
+        await Future.wait([ProductUserCase().getAllProducts()]);
+    setState(() {
+      foods = products.first;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    update();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -38,15 +56,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> with AutomaticKeepAlive
               itemCount: foods == null ? 0 :foods.length,
               itemBuilder: (BuildContext context, int index) {
 //                Food food = Food.fromJson(foods[index]);
-                Map food = foods[index];
+                ProductModel food = foods[index];
 //                print(foods);
 //                print(foods.length);
                 return GridProduct(
-                  img: food['img'],
+                  img: "assets/food1.jpeg",
                   isFav: true,
-                  name: food['name'],
-                  price: 5.0,
-                  currency: 'BRL',
+                  product: food,
                 );
               },
             ),

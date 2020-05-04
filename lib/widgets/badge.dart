@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/cart_model.dart';
+import 'package:restaurant_ui_kit/providers/app_provider.dart';
 
 class IconBadge extends StatefulWidget {
 
@@ -16,6 +19,7 @@ class IconBadge extends StatefulWidget {
 class _IconBadgeState extends State<IconBadge> {
   @override
   Widget build(BuildContext context) {
+    CartModel cart = Provider.of<AppProvider>(context).cart;
     return Stack(
       children: <Widget>[
         Icon(
@@ -37,7 +41,7 @@ class _IconBadgeState extends State<IconBadge> {
             child: Padding(
               padding: EdgeInsets.only(top: 1),
               child:Text(
-                "3",
+                "${cart == null ? 0 : cart.cart.length}",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 8,

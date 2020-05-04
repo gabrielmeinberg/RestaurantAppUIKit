@@ -22,6 +22,7 @@ class _ProfileState extends State<Profile> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                /*
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Image.asset(
@@ -31,7 +32,7 @@ class _ProfileState extends State<Profile> {
                     height: 100.0,
                   ),
                 ),
-
+                */
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_ui_kit/screens/notifications.dart';
-import 'package:restaurant_ui_kit/util/comments.dart';
-import 'package:restaurant_ui_kit/util/const.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_ui_kit/providers/app_provider.dart';
+//import 'package:restaurant_ui_kit/screens/notifications.dart';
+//import 'package:restaurant_ui_kit/util/comments.dart';
+//import 'package:restaurant_ui_kit/util/const.dart';
 import 'package:restaurant_ui_kit/util/foods.dart';
-import 'package:restaurant_ui_kit/widgets/badge.dart';
-import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
+//import 'package:restaurant_ui_kit/widgets/badge.dart';
+//import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
 
 class ProductDetails extends StatefulWidget {
-  final double price;
-  final String currency;
-  final String name;
-  final String description;
-  final String unit;
+  final ProductModel product;
 
   ProductDetails(
       {Key key,
-      @required this.price,
-      @required this.currency,
-      @required this.name,
-      @required this.description,
-      @required this.unit})
+      @required this.product})
       : super(key: key);
 
   @override
@@ -105,7 +100,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 10.0),
             Text(
-              "${widget.name}",
+              "${widget.product.name}",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -141,7 +136,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "${widget.unit}",
+                    "${widget.product.unit}",
                     style: TextStyle(
                       fontSize: 11.0,
                       fontWeight: FontWeight.w300,
@@ -149,7 +144,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    "${widget.currency} ${widget.price}",
+                    "${widget.product.priceObjectValue.currency} ${widget.product.priceObjectValue.price}",
                     style: TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w900,
@@ -170,7 +165,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 10.0),
             Text(
-              "${widget.description}",
+              "${widget.product.description}",
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w300,
@@ -258,7 +253,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ],
           ),
           color: Theme.of(context).accentColor,
-          onPressed: () {},
+          onPressed: () {Provider.of<AppProvider>(context, listen: false).addItemCart(widget.product, 1);},
         ),
       ),
     );

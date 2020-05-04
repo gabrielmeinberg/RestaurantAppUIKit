@@ -12,24 +12,18 @@ class _WalkthroughState extends State<Walkthrough> {
 
   List pageInfos = [
     {
-      "title": "Fresh Food",
-      "body": "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-          " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-          "dui. Nulla porttitor accumsan tincidunt.",
+      "title": "Comida Fresca",
+      "body": "",
       "img": "assets/on1.png",
     },
     {
-      "title": "Fast Delivery",
-      "body": "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-          " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-          "dui. Nulla porttitor accumsan tincidunt.",
+      "title": "Entrega Rapida",
+      "body": "",
       "img": "assets/on2.png",
     },
     {
-      "title": "Easy Payment",
-      "body": "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-          " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-          "dui. Nulla porttitor accumsan tincidunt.",
+      "title": "Pagamento Facilitado",
+      "body": "",
       "img": "assets/on3.png",
     },
   ];

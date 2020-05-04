@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
 import 'package:restaurant_ui_kit/screens/notifications.dart';
 import 'package:restaurant_ui_kit/util/foods.dart';
 import 'package:restaurant_ui_kit/widgets/badge.dart';
@@ -76,9 +77,7 @@ class _DishesScreenState extends State<DishesScreen> {
                 return GridProduct(
                   img: food['img'],
                   isFav: false,
-                  name: food['name'],
-                  price: 5.0,
-                  currency: 'BRL',
+                  product: ProductModel(name:'teste', description:'teste'),
                 );
               },
             ),
@@ -109,9 +108,7 @@ class _DishesScreenState extends State<DishesScreen> {
                 return GridProduct(
                   img: food['img'],
                   isFav: false,
-                  name: food['name'],
-                  price: 5.0,
-                  currency: 'BRL',
+                  product: ProductModel(name:'teste', description:'teste'),
                 );
               },
             ),
@@ -142,9 +139,7 @@ class _DishesScreenState extends State<DishesScreen> {
                 return GridProduct(
                   img: food['img'],
                   isFav: false,
-                  name: food['name'],
-                  price: 5.0,
-                  currency: 'BRL',
+                  product: ProductModel(name:'teste', description:'teste'),
                 );
               },
             ),

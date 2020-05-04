@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_ui_kit/application_layer/use_case/product_use_case.dart';
+import 'package:restaurant_ui_kit/providers/app_provider.dart';
 //import 'package:restaurant_ui_kit/screens/dishes.dart';
 import 'package:restaurant_ui_kit/widgets/grid_product.dart';
 //import 'package:restaurant_ui_kit/widgets/home_category.dart';
@@ -24,26 +26,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     return result;
   }
 
-  int _current = 0;
-  List<ProductModel> foods;
-
-  Future<void> update() async {
-    Iterable<List<ProductModel>> products =
-        await Future.wait([ProductUserCase().getAllProducts()]);
-    setState(() {
-      foods = products.first;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    update();
-  }
-
+  //int _current = 0;
+  
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    List<ProductModel> foods = Provider.of<AppProvider>(context).foods;
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
@@ -183,15 +172,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
               ),
               itemCount: foods == null ? 0 : foods.length,
               itemBuilder: (BuildContext context, int index) {
-                ProductModel food = foods[index];
+                ProductModel food = Provider.of<AppProvider>(context).foods[index];
                 return GridProduct(
                   img: "assets/food1.jpeg",
                   isFav: false,
-                  name: food.name,
-                  price: food.priceObjectValue.price,
-                  currency: 'BRL',
-                  description: food.description,
-                  unit: food.unit
+                  product: food,
                 );
               },
             ),

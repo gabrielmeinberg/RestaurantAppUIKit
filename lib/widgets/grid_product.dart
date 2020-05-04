@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_ui_kit/screens/details.dart';
-import 'package:restaurant_ui_kit/util/const.dart';
-import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
+//import 'package:restaurant_ui_kit/util/const.dart';
+//import 'package:restaurant_ui_kit/widgets/smooth_star_rating.dart';
+import 'package:restaurant_ui_kit/domain_layer/models/product_model.dart';
 
 class GridProduct extends StatelessWidget {
-  final String name;
+  final ProductModel product;
   final String img;
   final bool isFav;
   final double rating;
   final int raters;
-  final double price;
-  final String currency;
-  final String description;
-  final String unit;
+  
 
   GridProduct(
       {Key key,
-      @required this.name,
+      @required this.product,
       @required this.img,
-      @required this.price,
-      @required this.currency,
-      @required this.description,
-      @required this.unit,
       this.isFav,
       this.rating,
       this.raters})
@@ -74,7 +68,7 @@ class GridProduct extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
             child: Text(
-              "$name",
+              "${product.name}",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w900,
@@ -103,7 +97,7 @@ class GridProduct extends StatelessWidget {
                 ),
                 */
                 Text(
-                  " $currency $price",
+                  " ${product.priceObjectValue.currency} ${product.priceObjectValue.price}",
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
@@ -118,11 +112,7 @@ class GridProduct extends StatelessWidget {
           MaterialPageRoute(
             builder: (BuildContext context) {
               return ProductDetails(
-                  name: name,
-                  price: price,
-                  currency: currency,
-                  description: description,
-                  unit: unit);
+                  product:product);
             },
           ),
         );
